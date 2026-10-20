@@ -321,7 +321,7 @@ if __name__ == '__main__':
     ###################################################################################################
     
     d_min = 1
-    d_max = 200
+    d_max = 40
     
     import multiprocessing as mp
     import time
@@ -345,6 +345,6 @@ if __name__ == '__main__':
             print(d, time.time() - time_start, len(data_terminal_points))
 
     PROJECT_DIR = Path(__file__).resolve().parent.parent
-    DATA_DIR = PROJECT_DIR / "data"
+    DATA_DIR = PROJECT_DIR / "data" / "exhaustive"
     os.makedirs(DATA_DIR, exist_ok=True)
     np.savetxt(DATA_DIR / "exhaustive_terminal_points2.csv", data_terminal_points, delimiter=",")

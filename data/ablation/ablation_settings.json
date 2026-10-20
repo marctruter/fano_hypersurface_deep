@@ -1,0 +1,10 @@
+{
+    "reward_value": 1,
+    "sigma": 2,
+    "max_steps": 10000000,
+    "max_episodes": 5,
+    "dim_X": 4,
+    "alpha_X": 1,
+    "state_dim": 6,
+    "action_dim": 1
+}

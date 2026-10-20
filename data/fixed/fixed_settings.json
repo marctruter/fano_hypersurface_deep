@@ -1,0 +1,6 @@
+{
+    "max_steps": 10000000,
+    "dim_X": 4,
+    "alpha_X": 1,
+    "state_dim": 6
+}
