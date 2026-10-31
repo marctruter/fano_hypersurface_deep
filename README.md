@@ -1,4 +1,4 @@
-# Deep Reinforcement Learning for Fano Hypersurfaces
+# Terminal Fano 4-fold Hypersurfaces via Deep Reinforcement Learning
 
 **Source code and data for [*Deep Reinforcement Learning for Fano Hypersurfaces*](https://arxiv.org/abs/2603.15437).**
 
