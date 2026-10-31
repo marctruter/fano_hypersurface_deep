@@ -1,76 +1,125 @@
 # Deep Reinforcement Learning for Fano Hypersurfaces
-We design a deep reinforcement learning algorithm to explore a high-dimensional integer lattice with sparse rewards, training a feedforward neural network as a dynamic search heuristic to steer exploration toward reward dense regions. We apply this to the discovery of Fano 4-fold hypersurfaces with terminal singularities, objects of central importance in algebraic geometry. Fano varieties with terminal singularities are fundamental building blocks of algebraic varieties, and explicit examples serve as a vital testing ground for the development and generalisation of theory. Despite decades of effort, the combinatorial intractability of the underlying search space has left this classification severely incomplete. Our reinforcement learning approach yields thousands of previously unknown examples, hundreds of which we show are inaccessible to our search methods.
 
-This is the repository for the source code and data associated to the paper: 
+**Source code and data for [*Deep Reinforcement Learning for Fano Hypersurfaces*](https://arxiv.org/abs/2603.15437).**
 
-*Deep Reinforcement Learning for Fano Hypersurfaces*, [arXiv](https://arxiv.org/abs/2603.15437)
+We study the discovery of terminal Fano fourfold hypersurfaces of index one,
 
-## Code
+$$
+X_d\subset\mathbb{P}(a_1,\ldots,a_6),\qquad d=\sum_{i=1}^{6}a_i-1,
+$$
 
-**Exhaustive Search** 
-- `code/fano_exhaustive.py` search code
-- `code/fano_exhaustive_analysis.ipynb` analysis code
-  
-**Fixed Heuristic Search**
-- `code/fano_main.py` search and analysis code
-  
-**Dynamic Heuristic (Deep Reinforcement Learning) Search**
-- `code/fano_main.py` search and analysis code
+using best-first searches over the integer lattice of weights. We compare a **fixed heuristic** with a **dynamic heuristic** learned online through deep reinforcement learning, and use an **ablation search** to distinguish learning from stochastic exploration alone.
 
-**Appendix**
-- `code/fano_appendix_analysis.ipynb` analysis code
+## Main results
 
-## Data
+- **46,992** previously unknown nonquasismooth terminal families with equation degree $d>200$.
+- **121,980** distinct nonquasismooth terminal families across all degrees, combining the heuristic searches.
+- Discovered families with equation degrees up to **3,234**.
+- The fixed heuristic finds more families overall, whereas the dynamic heuristic explores more isolated regions of weight space, discovering an average of **79 ± 9** hard-to-reach families per run across five runs.
 
-All data from the experiments is already in the repository in the `/data` folder, except for the two searched point dataset files due to their size. These are hosted on [GitHub Releases](https://github.com/marctruter/deep_fano_hypersurface/releases) and can be downloaded directly via:
-- [fixed_searched_points.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/fixed_searched_points.csv)
-- [dynamic_searched_points_episode_1.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/dynamic_searched_points_episode_1.csv)
-- [dynamic_searched_points_episode_2.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/dynamic_searched_points_episode_2.csv)
-- [dynamic_searched_points_episode_3.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/dynamic_searched_points_episode_3.csv)
-- [dynamic_searched_points_episode_4.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/dynamic_searched_points_episode_4.csv)
-- [dynamic_searched_points_episode_5.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/dynamic_searched_points_episode_5.csv)
-- [ablation_searched_points_episode_1.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/ablation_searched_points_episode_1.csv)
-- [ablation_searched_points_episode_2.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/ablation_searched_points_episode_2.csv)
-- [ablation_searched_points_episode_3.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/ablation_searched_points_episode_3.csv)
-- [ablation_searched_points_episode_4.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/ablation_searched_points_episode_4.csv)
-- [ablation_searched_points_episode_5.csv](https://github.com/marctruter/deep_fano_hypersurface/releases/download/v1.0/ablation_searched_points_episode_5.csv)
+The paper describes the search algorithms, terminality certification, distance analysis and ablation experiments.
 
-Place both files in the `/data` folder.
+## Repository structure
 
-**Quasismooth Classification**
-- `/data/qs_terminal.csv` classification of quasismooth terminal Fano 4-fold hypersurfaces with Fano index 1
+```text
+code/                                  Search and analysis scripts/notebooks
 
-**Exhaustive Search**
-- `/data/exhaustive_terminal_points.csv` terminal points found by the search
-  
-**Fixed Heuristic Search**
-- `/data/fixed_settings.json` constants used
-- `/data/fixed_terminal_points.csv` terminal points found by the search
-- `/data/fixed_searched_points.csv` searched points
-- `/data/fixed_reward_vs_steps.csv` number of terminal points found against step count
-  
-**Dynamic Heuristic (Deep Reinforcement Learning) Search**
-- `/data/dynamic_settings.json` constants and hyperparameters used
-- `/data/dynamic_terminal_points_episode_i.csv` terminal points found by the search
-- `/data/dynamic_terminal_points_total.csv` terminal points over all episodes
-- `/data/dynamic_searched_points_episode_i.csv` searched points
-- `/data/dynamic_reward_vs_steps_episode_i.csv` number of terminal points found against step count
-- `/data/dynamic_model.pth` neural network model at the final step of the search
+data/
+  quasismooth/
+    quasismooth_terminal.csv            Reference quasismooth classification
+  fixed/                                Fixed-search results and certification data
+  dynamic/                              Dynamic-search results and certification data
+  ablation/                             Ablation-search results
+  union/
+    union_certification/
+      union_certification_short.csv     Unique weight vectors (no header)
+      union_certification_short.pkl     Degree and weight records
+      union_certification_medium.pkl    Condensed singularity records
+      union_certification_long.pkl      Detailed certification records
+      union_certification_raw.pkl       Raw records and certification outcomes
 
-**Analysis**
-- `/data/fixed_differing_points.csv` terminal points found in the fixed but not dynamic search
-- `/data/dynamic_differing_points_episode_i.csv` terminal points found in the dynamic but not fixed search
-- `/data/fixed_differing_distances.csv` closest distances of terminal points found in the fixed but not dynamic search to their neighbours
-- `/data/dynamic_differing_distances_episode_i.csv` closest distances of terminal points found in the dynamic but not fixed search to their neighbours
+figures/                                Figures generated for the paper
+LICENSE                                 MIT licence
+README.md
+```
 
-**Appendix**
-- `/data/ablation_settings.json` constants and hyperparameters used
-- `/data/ablation_terminal_points_episode_i.csv` terminal points found by the search
-- `/data/ablation_searched_points_episode_i.csv` searched points
-- `/data/ablation_reward_vs_steps_episode_i.csv` number of terminal points found against step count
-- `/data/ablation_differing_points_episode_i.csv` terminal points found in the ablation but not fixed search
-- `/data/ablation_differing_distances_episode_i.csv` closest distances of terminal points found in the ablation but not fixed search to their neighbours
+The tree highlights the principal directories and consolidated certification files; it is not a complete listing of experimental outputs.
 
+## Classification and certification data
 
+### Combined heuristic-search datasets
 
+The files in [`data/union/union_certification/`](data/union/union_certification/) combine the fixed search and all five dynamic runs. Processed datasets contain distinct certified terminal families, identified by their weight vectors. The raw dataset retains certification outcomes, including unsuccessful or unresolved records.
 
+| File | Description |
+| --- | --- |
+| `union_certification_short.csv` | Six weights $a_1,\ldots,a_6$ per row; **no header** |
+| `union_certification_short.pkl` | Short records containing equation degree and weights |
+| `union_certification_medium.pkl` | Condensed singularity data for the certified families |
+| `union_certification_long.pkl` | More detailed certification data |
+| `union_certification_raw.pkl` | Original records, including terminality-test outcomes |
+
+The short CSV has one row per weight vector, for example:
+
+```csv
+1,1,5,25,37,68
+```
+
+This represents $X_{136}\subset\mathbb{P}(1,1,5,25,37,68)$; the equation degree is recovered from $d=\sum_i a_i-1$. The `.pkl` files are Python pickle files intended for analysis with the accompanying code.
+
+### Full classification: Zenodo
+
+The consolidated classification **`terminal_fano_fourfolds_index1_sporadic.sql`** is distributed through **Zenodo**, rather than included in this GitHub repository.
+
+**Zenodo record / DOI:** *Link to be added after publication.*
+
+The SQL archive records equation degrees, individual weights, canonical classes, exact and decimal anticanonical volumes, point and curve singularity baskets, and smoothness, quasismoothness, terminality and canonicality indicators. Its classification also includes quasismooth reference entries where applicable.
+
+For an index-one family, the anticanonical volume is
+
+$$
+(-K_X)^4=\frac{d}{a_1a_2a_3a_4a_5a_6}.
+$$
+
+In the SQL data, `Degree` stores this number as an exact rational string, and `Degree_dec` stores its decimal approximation. The singularity baskets are separated by type and by point or curve.
+
+### Quasismooth reference classification
+
+[`data/quasismooth/quasismooth_terminal.csv`](data/quasismooth/quasismooth_terminal.csv) contains the reference classification of quasismooth terminal Fano fourfold hypersurfaces of index one, used to initialise the heuristic searches. This reference data comes from the [Graded Ring Database (GRDB)](https://www.grdb.co.uk/forms/fano4ci1) and the classification by Gavin Brown and Alexander M. Kasprzyk in [*Four-dimensional projective orbifold hypersurfaces*](https://doi.org/10.1080/10586458.2015.1054054), *Experimental Mathematics* **25** (2016), no. 2, 176–193. Please cite these original sources when using the quasismooth dataset.
+
+## Large searched-point logs
+
+The complete searched-point logs are too large for the GitHub repository and are available through the [**searched-point GitHub release**](https://github.com/marctruter/fano_hypersurface_deep/releases/tag/searched_points):
+
+- `fixed_searched_points.csv`
+- `dynamic_searched_points_episode_1.csv` through `dynamic_searched_points_episode_5.csv`
+- `ablation_searched_points_episode_1.csv` through `ablation_searched_points_episode_5.csv`
+
+Download the logs needed for the relevant analysis and place them at the locations expected by the corresponding scripts or notebooks. They are not needed simply to inspect the consolidated classification data.
+
+## Reproducing the analysis
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/marctruter/fano_hypersurface_deep.git
+   cd fano_hypersurface_deep
+   ```
+
+2. Set up a Python environment with the packages imported by the relevant scripts and notebooks (including NumPy, pandas, Matplotlib and PyTorch where required).
+3. Download any large searched-point logs required by the analysis from the GitHub release.
+4. Run the relevant scripts or notebooks in `code/`, checking their relative input and output paths before execution.
+
+The consolidated CSV and pickle datasets allow inspection of the search discoveries without rerunning the searches. The Zenodo SQL archive provides the full tabulated geometric data.
+
+## Citation
+
+If you use the code or data, please cite the associated paper:
+
+**Marc Truter**, [*Deep Reinforcement Learning for Fano Hypersurfaces*](https://arxiv.org/abs/2603.15437), arXiv:2603.15437 (2026).
+
+For the complete classification dataset, please also cite its Zenodo DOI once available. When using the quasismooth reference data, credit the [GRDB](https://www.grdb.co.uk/forms/fano4ci1) and [Brown–Kasprzyk (2016)](https://doi.org/10.1080/10586458.2015.1054054).
+
+## Licence
+
+The source code is released under the [MIT licence](LICENSE).
