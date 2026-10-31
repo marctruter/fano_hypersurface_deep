@@ -1,4 +1,4 @@
-# Terminal Fano 4-fold Hypersurfaces via Deep Reinforcement Learning
+# Deep Reinforcement Learning for Fano Hypersurfaces
 
 **Source code and data for [*Deep Reinforcement Learning for Fano Hypersurfaces*](https://arxiv.org/abs/2603.15437).**
 
@@ -111,6 +111,10 @@ Download the logs needed for the relevant analysis and place them at the locatio
 4. Run the relevant scripts or notebooks in `code/`, checking their relative input and output paths before execution.
 
 The consolidated CSV and pickle datasets allow inspection of the search discoveries without rerunning the searches. The Zenodo SQL archive provides the full tabulated geometric data.
+
+## Companion repository
+
+The companion repository, [*Terminal Fano 4-fold Hypersurfaces*](https://github.com/marctruter/fano_hypersurface_exhaustive), contains the exhaustive classification of terminal Fano fourfold hypersurfaces of index one for $d\leq200$, including **77,387** nonquasismooth families. The associated paper, *Terminal Fano 4-fold Hypersurfaces*, is in preparation, and its classification data will be archived separately on Zenodo.
 
 ## Citation
 
