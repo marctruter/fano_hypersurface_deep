@@ -17,7 +17,7 @@ using best-first searches over the integer lattice of weights. We compare a **fi
 - Discovered families with equation degrees up to **3,234**.
 - The fixed heuristic finds more families overall, whereas the dynamic heuristic explores more isolated regions of weight space, discovering an average of **79 ± 9** hard-to-reach families per run across five runs.
 
-The paper describes the search algorithms, terminality certification, distance analysis and ablation experiments. The consolidated classification is [archived on Zenodo](https://doi.org/10.5281/zenodo.23837634).
+The paper describes the search algorithms, terminality certification, distance analysis and ablation experiments. The consolidated classification is [archived on Zenodo](https://doi.org/10.5281/zenodo.23837634) [4].
 
 ## Repository structure
 
@@ -39,11 +39,9 @@ data/
       union_certification_raw.pkl      Raw records and certification outcomes
 
 figures/                                Figures generated for the paper
-LICENSE                                 MIT licence
+LICENSE                                 MIT license
 README.md
 ```
-
-The tree highlights the principal directories and consolidated certification files; it is not a complete listing of experimental outputs.
 
 ## Classification and certification data
 
@@ -65,16 +63,16 @@ The short CSV contains one row per weight vector, for example:
 1,1,5,25,37,68
 ```
 
-This represents the hypersurface $X_{136}\subset\mathbb{P}(1,1,5,25,37,68)$; the equation degree is recovered from $d=\sum_i a_i-1$. The CSV contains no header or degree column. The `.pkl` files are Python pickle files for use with the scripts and notebooks in [`code/`](code/). Only load pickle files from sources you trust.
+This represents the hypersurface $X_{136}\subset\mathbb{P}(1,1,5,25,37,68)$; the equation degree is recovered from $d=\sum_i a_i-1$. The `.pkl` files are Python pickle files for use with the scripts and notebooks in [`code/`](code/).
 
 ### Full classification: Zenodo
 
-The consolidated classification is published as a separate Zenodo dataset:
+The consolidated classification is published as a separate Zenodo dataset [4]:
 
 **[Sporadic List of Terminal Fano 4-Fold Hypersurfaces in Weighted Projective Space of Index 1](https://doi.org/10.5281/zenodo.23837634)**  
 **DOI:** [`10.5281/zenodo.23837634`](https://doi.org/10.5281/zenodo.23837634)
 
-The SQL archive, **`terminal_fano_4fold_index1_sporadic.sql`**, contains the table `terminal_fano_4fold_index1_sporadic`. It is distributed through Zenodo rather than included in this GitHub repository. It records the equation degree and individual weights, canonical class, point and curve singularity baskets (organised by type), their sizes, and smoothness, quasismoothness, terminality and canonicality indicators. It also incorporates quasismooth reference families. This is a **sporadic list**, not a claim of completeness beyond $d\leq200$.
+The SQL archive, **`terminal_fano_4fold_index1_sporadic.sql`**, contains the table `terminal_fano_4fold_index1_sporadic`. It records the equation degree and individual weights, canonical class, point and curve singularity baskets (organised by type), their sizes, and smoothness, quasismoothness, terminality and canonicality indicators. It also incorporates quasismooth reference families. This is a **sporadic list**, not a claim of completeness beyond $d\leq200$.
 
 For an index-one family, the anticanonical volume is
 
@@ -82,7 +80,7 @@ $$
 (-K_X)^4=\frac{d}{a_1a_2a_3a_4a_5a_6}.
 $$
 
-In the SQL data, `Degree` represents the exact rational volume and `Degree_dec` its decimal approximation. The archive allows users to inspect and query the classification without rerunning the heuristic searches.
+In the SQL data, `Degree` represents the exact rational volume and `Degree_dec` its decimal approximation.
 
 After downloading the SQL file, it can be imported into SQLite (with the `sqlite3` command-line tool installed):
 
@@ -100,11 +98,7 @@ WHERE Equation_degree > 200 AND IsQsmooth = 0;
 
 ### Quasismooth reference classification
 
-[`data/quasismooth/quasismooth_terminal.csv`](data/quasismooth/quasismooth_terminal.csv) contains the reference classification of quasismooth terminal Fano fourfold hypersurfaces of index one, used to initialise the heuristic searches. Its sources are the [Graded Ring Database (GRDB)](https://www.grdb.co.uk/) and the classification by Gavin Brown and Alexander M. Kasprzyk:
-
-> G. Brown and A. M. Kasprzyk, [*Four-dimensional projective orbifold hypersurfaces*](https://doi.org/10.1080/10586458.2015.1054054), *Experimental Mathematics* **25** (2016), no. 2, 176–193.
-
-Please cite these original sources when using the quasismooth data.
+[`data/quasismooth/quasismooth_terminal.csv`](data/quasismooth/quasismooth_terminal.csv) contains the reference classification of quasismooth terminal Fano fourfold hypersurfaces of index one, used to initialise the heuristic searches. Its sources are the [Graded Ring Database (GRDB)](https://www.grdb.co.uk/) [2] and the classification by Gavin Brown and Alexander M. Kasprzyk [1].
 
 ## Large searched-point logs
 
@@ -113,8 +107,6 @@ The complete searched-point logs are too large for the GitHub repository and are
 - `fixed_searched_points.csv`
 - `dynamic_searched_points_episode_1.csv` through `dynamic_searched_points_episode_5.csv`
 - `ablation_searched_points_episode_1.csv` through `ablation_searched_points_episode_5.csv`
-
-Download the logs needed for the relevant analysis and place them at the locations expected by the corresponding scripts or notebooks. They are not needed simply to inspect the consolidated classification data.
 
 ## Reproducing the computations
 
@@ -129,31 +121,36 @@ Download the logs needed for the relevant analysis and place them at the locatio
 3. Download any large searched-point logs required by the analysis from the [GitHub release](https://github.com/marctruter/fano_hypersurface_deep/releases/tag/searched_points).
 4. Run the relevant scripts or notebooks in [`code/`](code/), checking their expected working directory and relative data paths before execution.
 
-The consolidated CSV and pickle datasets allow inspection of the search discoveries without rerunning the searches. The [Zenodo classification archive](https://doi.org/10.5281/zenodo.23837634) provides the full tabulated geometric data.
-
 ## Companion repository
 
-The companion repository, [*Terminal Fano 4-fold Hypersurfaces*](https://github.com/marctruter/fano_hypersurface_exhaustive), contains the exhaustive classification of terminal Fano fourfold hypersurfaces of index one for $d\leq200$, including **77,387** nonquasismooth families. Its classification data is available in the [Zenodo exhaustive classification dataset](https://doi.org/10.5281/zenodo.23836799). The associated paper, *Terminal Fano 4-fold Hypersurfaces*, is in preparation.
+The companion repository, [*Terminal Fano 4-fold Hypersurfaces*](https://github.com/marctruter/fano_hypersurface_exhaustive), contains the exhaustive classification of terminal Fano fourfold hypersurfaces of index one for $d\leq200$, including **77,387** nonquasismooth families. Its classification data is available in the [Zenodo exhaustive classification dataset](https://doi.org/10.5281/zenodo.23836799) [3]. The associated paper, *Terminal Fano 4-fold Hypersurfaces* [5], is in preparation.
 
 ## Citation
 
-If you use the search code or experimental data, please cite the associated paper and the Zenodo sporadic dataset:
+If you use the heuristic-search code or experimental data, please cite the associated paper [6] and the Zenodo sporadic dataset [4]. The methods for certifying terminality are also developed in the author's doctoral thesis [7].
 
-- **Marc Truter**, [*Terminal Fano 4-fold Hypersurfaces via Deep Reinforcement Learning*](https://arxiv.org/abs/2603.15437), arXiv:2603.15437 (2026).
-- **Truter, M. (2026).** *Sporadic List of Terminal Fano 4-Fold Hypersurfaces in Weighted Projective Space of Index 1* (Version 1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23837634
+If you use the exhaustive classification through degree $200$, please also cite the associated paper [5] and Zenodo classification dataset [3]. If you use the reference quasismooth classification, please also cite Brown–Kasprzyk [1] and the GRDB [2].
 
-The methods for certifying terminality are also developed in Marc Truter's PhD thesis, *Terminal Hypersurfaces in Weighted Projective Spaces*, University of Warwick.
+## References
 
-If you use the exhaustive classification up to degree $200$, please also cite *Terminal Fano 4-fold Hypersurfaces* (paper in preparation) and the following dataset:
+[1] Gavin Brown and Alexander M. Kasprzyk, *Four-dimensional projective orbifold hypersurfaces*, *Experimental Mathematics* **25** (2016), no. 2, 176–193. https://doi.org/10.1080/10586458.2015.1054054.
 
-- **Truter, M. (2026).** *Classification of Terminal Fano 4-Fold Hypersurfaces in Weighted Projective Space of Index 1 up to Degree 200* (Version 1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23836799
+[2] Gavin Brown and Alexander Kasprzyk, [Graded Ring Database](https://www.grdb.co.uk/).
 
-If you use the reference quasismooth classification, please also cite the [GRDB](https://www.grdb.co.uk/) and [Brown–Kasprzyk (2016)](https://doi.org/10.1080/10586458.2015.1054054).
+[3] Marc Truter, *Classification of Terminal Fano 4-Fold Hypersurfaces in Weighted Projective Space of Index 1 up to Degree 200*, version 1.0 [Data set], Zenodo (2026). https://doi.org/10.5281/zenodo.23836799.
+
+[4] Marc Truter, *Sporadic List of Terminal Fano 4-Fold Hypersurfaces in Weighted Projective Space of Index 1*, version 1.0 [Data set], Zenodo (2026). https://doi.org/10.5281/zenodo.23837634.
+
+[5] Marc Truter, *Terminal Fano 4-fold Hypersurfaces*, in preparation.
+
+[6] Marc Truter, *Terminal Fano 4-fold Hypersurfaces via Deep Reinforcement Learning*, [arXiv:2603.15437](https://arxiv.org/abs/2603.15437) (2026).
+
+[7] Marc Truter, *Terminal Hypersurfaces in Weighted Projective Spaces*, PhD thesis, University of Warwick.
 
 ## Acknowledgements
 
 This work was supported by the UK Engineering and Physical Sciences Research Council (EPSRC) under grant number EP/W523793/1.
 
-## Licence
+## License
 
-The source code is released under the [MIT licence](LICENSE).
+The source code is released under the [MIT license](LICENSE).
